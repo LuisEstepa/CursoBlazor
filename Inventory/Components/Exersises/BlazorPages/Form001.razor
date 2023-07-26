@@ -1,0 +1,21 @@
+﻿
+<input type="text" id="textInput" @bind-value="@text" />
+
+<div>
+    <input type="button" value="Haga clic aqui" @onclick="ChangueText"/>
+</div>
+
+<div>
+    <h1 id="title">@message</h1>
+</div>
+
+@code {
+
+    string message = "";
+    string text ="";
+
+    private void ChangueText()
+    {
+        message = text;        
+    }
+}
