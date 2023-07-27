@@ -1,3 +1,4 @@
+using Bussiness;
 using Inventory.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -8,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddSingleton<B_Product>();
+builder.Services.AddSingleton<B_Category>();
+
 
 var app = builder.Build();
 

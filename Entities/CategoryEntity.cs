@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace Entities
 {
@@ -12,7 +13,7 @@ namespace Entities
         [StringLength(100)]
         public string CategoryName { get; set; }
 
-        public ICollection<ProductEntity> Products { get; set; }        
+        public ICollection<ProductEntity> Products { get; set; }    
 
     }
 }

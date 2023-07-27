@@ -12,9 +12,9 @@ namespace Entities
         public DateTime InputOutputDate { get; set; }
 
         [Required]
-        public DateTime InputOutputUpdate { get; set; }
+        public int Quantity { get; set; }
 
         [Required]
-        public bool Quantity { get; set; }
+        public bool IsInput { get; set; }
     }
 }

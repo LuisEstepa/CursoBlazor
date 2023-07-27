@@ -13,5 +13,10 @@ namespace Entities
 
         [Required]
         public int PartialQuantity { get; set; }
+
+        public string ProductId { get; set; }
+
+        public ProductEntity Product { get; set; }
+
     }
 }
