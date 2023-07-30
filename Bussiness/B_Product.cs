@@ -10,7 +10,7 @@ namespace Bussiness
 {
     public class B_Product
     {
-        public List<ProductEntity> CategoryList()
+        public List<ProductEntity> ProductList()
         {
             using (var db = new InventaryContext())
             {
@@ -46,9 +46,9 @@ namespace Bussiness
         {
             using (var db = new InventaryContext())
             {
-                var registro = db.Products.Select(p => p.ProductId == oProductId);
+                var registro = db.Products.FirstOrDefault(p => p.ProductId == oProductId);
 
-                return (ProductEntity)registro;
+                return registro;
             }
         }
 

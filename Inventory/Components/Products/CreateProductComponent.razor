@@ -1,6 +1,8 @@
 ﻿@using Entities
 @using Bussiness
 
+
+
 <div>
     <EditForm Model="oProduct">
         <div class="form-group">
@@ -17,28 +19,35 @@
         </div>
         <div class="form-group">
             <label>Categoria</label>
-            <InputSelect @bind-Value="oProduct.CategoryId" class="form-control"></InputSelect>
-            @foreach(var category in categories)
-            {
+            <InputSelect @bind-Value="oProduct.CategoryId" class="form-control">
+                @foreach (var category in categories)
+                {
                 <option value="@category.CategoryId">@category.CategoryName</option>
-            }
+                }
+            </InputSelect>        
         </div>
+        <br />
         <input type="button" value="Agregar producto" @onclick="SaveProduct" />
     </EditForm>
 </div>
 
 @inject B_Product _Product
-@*@inject B_Category _Category*@
+@inject B_Category _Category
+@inject NavigationManager _NavManager
 
 @code {
 
     ProductEntity oProduct = new ProductEntity();
     List<CategoryEntity> categories = new List<CategoryEntity>();
 
-    protected override async Task OnInicializedAsync() => categories = B_Category.CategoryList();
-    
+    protected override async Task OnInitializedAsync()
+    {
+        categories = _Category.CategoryList();
+    }     
+
     private void SaveProduct()
     {
-        _Product.CreateProduct(oProduct);        
+        _Product.CreateProduct(oProduct);
+        _NavManager.NavigateTo("product/list");
     }
 }

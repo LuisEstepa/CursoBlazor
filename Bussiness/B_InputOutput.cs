@@ -10,7 +10,7 @@ namespace Bussiness
 {
     public class B_InputOutput
     {
-        public List<InputOutputEntity> CategoryList()
+        public List<InputOutputEntity> InOutsList()
         {
             using (var db = new InventaryContext())
             {
@@ -18,7 +18,7 @@ namespace Bussiness
             }
         }
 
-        public void CreateCategory(InputOutputEntity oInputOutput)
+        public void CreateInOuts(InputOutputEntity oInputOutput)
         {
             using (var db = new InventaryContext())
             {
@@ -28,7 +28,7 @@ namespace Bussiness
 
         }
 
-        public void UpdateCategory(InputOutputEntity oInputOutput)
+        public void UpdateInOuts(InputOutputEntity oInputOutput)
         {
             using (var db = new InventaryContext())
             {
@@ -37,17 +37,17 @@ namespace Bussiness
             }
         }
 
-        public InputOutputEntity GetCategoryForId(string oInputOutputId)
+        public InputOutputEntity GetInOuts(string oInputOutputId)
         {
             using (var db = new InventaryContext())
             {
-                var inputOutput = db.InOuts.Select(p => p.InputOutputId == oInputOutputId);
+                var registro = db.InOuts.FirstOrDefault(p => p.InputOutputId == oInputOutputId);
 
-                return (InputOutputEntity)inputOutput;
+                return registro;
             }
         }
 
-        public void DeleteCategoryForId(string oInputOutputId)
+        public void DeleteInOutsForId(string oInputOutputId)
         {
             using (var db = new InventaryContext())
             {

@@ -5,31 +5,35 @@ namespace Bussiness
 {
     public class B_Category
     {
-        public static List<CategoryEntity> CategoryList() 
+        public  List<CategoryEntity> CategoryList() 
         {
-            using var db = new InventaryContext();
+            using var db = new InventaryContext();            
             return db.Categories.ToList();
         }
 
-        public static void CreateCategory(CategoryEntity oCategory)
+        public void CreateCategory(CategoryEntity oCategory)
         {
             using var db = new InventaryContext();
+            //oCategory.CategoryId = Guid.NewGuid().ToString();
             db.Categories.Add(oCategory);
             db.SaveChanges();
         }
 
-        public static void UpdateCategory(CategoryEntity oCategory)
+        public void UpdateCategory(CategoryEntity oCategory)
         {
             using var db = new InventaryContext();
             db.Categories.Update(oCategory);
             db.SaveChanges();
         }
 
-        public static CategoryEntity GetCategoryForId(string oCategoryId)
+        public CategoryEntity GetCategoryForId(string oProductId)
         {
-            using var db = new InventaryContext();
-            var category = db.Categories.Where(p => p.CategoryId == oCategoryId);
-            return (CategoryEntity)category;
+            using (var db = new InventaryContext())
+            {
+                var registro = db.Categories.FirstOrDefault(p => p.CategoryId == oProductId);
+
+                return registro;
+            }
         }
     }
 }

@@ -1,0 +1,49 @@
+﻿@using Entities
+@using Bussiness
+
+@if (storages == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <table id="categoriesTable" class="display table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>Categoria Id</th>
+                <th>Bodega</th>
+                <th>Fecha actualización</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var storage in storages)
+            {
+                <tr>
+                    <td>@storage.StorageId</td>
+                    <td>@storage.Warehouse</td>
+                    <td>@storage.StorageUpdate</td>
+                    <td>
+                        <a href="storages/update/@storage.StorageId">Editar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@*<div>@message</div>*@
+
+@inject B_Storage _Storage
+
+@code {
+
+    List<StorageEntity> storages = new List<StorageEntity>();
+
+    //string message;
+
+    protected override async Task OnInitializedAsync()
+    {
+        storages = _Storage.StorageList();
+    }
+}

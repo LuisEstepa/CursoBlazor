@@ -1,0 +1,71 @@
+﻿@using Entities
+@using Bussiness
+
+<div>
+    <EditForm Model="oStorage">
+        <div class="form-group">
+            <label>Bodega: </label>
+            <InputSelect @bind-Value="oStorage.WarehouseId" class="form-control">
+                <option value="">Selecione una bodega</option>
+                @foreach (var warehouse in warehouses)
+                {
+                    <option value="@warehouse.WarehouseId">@warehouse.WarehouseName</option>
+                }
+            </InputSelect>
+        </div>
+        <div class="form-group">
+            <label>Producto: </label>
+            <InputSelect @bind-Value="oStorage.ProductId" class="form-control">
+                <option value="">Selecione un producto</option>
+                @foreach (var product in products)
+                {
+                    <option value="@product.ProductId">@product.ProductName</option>
+                }
+            </InputSelect>
+        </div>
+        <br />
+        <input type="button" value="Almacenar producto" @onclick="SaveStorage" />
+    </EditForm>
+</div>
+
+@inject B_Storage _Storage
+@inject B_Warehouse _Warehouse
+@inject B_Product _Product
+@inject NavigationManager _NavManager
+
+
+@code {
+
+    StorageEntity oStorage = new();
+
+    List<StorageEntity> storage = new();
+    List<WarehouseEntity> warehouses = new();
+    List<ProductEntity> products = new();
+
+    string message;
+
+    protected override async Task OnInitializedAsync()
+    {
+        storage = _Storage.StorageList();
+        products = _Product.ProductList();
+        warehouses = _Warehouse.WarehouseList();
+    }
+
+    private void SaveStorage()
+    {
+        oStorage.StorageId = $"{oStorage.WarehouseId}-{oStorage.ProductId}";
+        if (!_Storage.IsProductInWarehouse(oStorage.StorageId))
+        {
+            oStorage.StorageUpdate = DateTime.Now;
+            _Storage.CreateStorage(oStorage);
+
+            message = "Producto registrado";
+        }
+        else
+        {
+            message = "Producto ya existe en la bodega";
+        }       
+
+        _NavManager.NavigateTo("storages/list");
+    }
+}

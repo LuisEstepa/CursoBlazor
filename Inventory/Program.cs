@@ -11,6 +11,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddSingleton<B_Product>();
 builder.Services.AddSingleton<B_Category>();
+builder.Services.AddSingleton<B_Warehouse>();
 
 
 var app = builder.Build();

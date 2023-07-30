@@ -1,16 +1,11 @@
 ﻿using DataAccess;
 using Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bussiness
 {
     public class B_Storage
     {
-        public List<StorageEntity> CategoryList()
+        public List<StorageEntity> StorageList()
         {
             using (var db = new InventaryContext())
             {
@@ -20,18 +15,30 @@ namespace Bussiness
 
         //Crear registro
 
-        public void CreateCategory(StorageEntity oStorage)
+        public void CreateStorage(StorageEntity oStorage)
         {
             using (var db = new InventaryContext())
-            {
+            {   
                 db.Storages.Add(oStorage);
                 db.SaveChanges();
             }
 
         }
+
+        public bool IsProductInWarehouse(string idStorage)
+        {
+            using (var db = new InventaryContext())
+            {
+                var product = db.Storages.ToList()
+                    .Where(p => p.StorageId == idStorage);
+                return product.Any();
+            }
+
+        }
+
         // Actualizar registro
 
-        public void UpdateCategory(StorageEntity oStorage)
+        public void UpdateStorage(StorageEntity oStorage)
         {
             using (var db = new InventaryContext())
             {
@@ -42,13 +49,13 @@ namespace Bussiness
 
         //Obtener registro por Id
 
-        public StorageEntity GetCategoryForId(string oStorageId)
+        public StorageEntity GetStorageForId(string oProductId)
         {
             using (var db = new InventaryContext())
             {
-                var registro = db.Storages.Select(p => p.ProductId == oStorageId);
+                var registro = db.Storages.FirstOrDefault(p => p.StorageId == oProductId);
 
-                return (StorageEntity)registro;
+                return registro;
             }
         }
 

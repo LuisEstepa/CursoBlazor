@@ -17,7 +17,7 @@ namespace DataAccess
         {
             if (!options.IsConfigured)
             {                
-                options.UseOracle(@"User Id= USR_CAD; Password=SECAD2021; Data Source=(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = 172.21.157.8)(PORT = 1521))(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = SECAD123)))");
+                options.UseOracle(@"User Id= USR_PRUEBA; Password=POLICIA123; Data Source=(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = 172.21.157.8)(PORT = 1521))(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = SECAD123)))");
             }
         }
 

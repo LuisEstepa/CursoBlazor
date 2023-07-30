@@ -5,65 +5,63 @@ namespace Bussiness
 {
     public class B_Warehouse
     {
-        public class B_Storage
+        public List<WarehouseEntity> WarehouseList()
         {
-            public List<WarehouseEntity> CategoryList()
+            using (var db = new InventaryContext())
             {
-                using (var db = new InventaryContext())
-                {
-                    return db.Warehouses.ToList();
-                }
+                return db.Warehouses.ToList();
+            }
+        }
+
+        //Crear registro
+
+        public void CreateWarehouse(WarehouseEntity oParam)
+        {
+            using (var db = new InventaryContext())
+            {
+                db.Warehouses.Add(oParam);
+                db.SaveChanges();
             }
 
-            //Crear registro
+        }
+        // Actualizar registro
 
-            public void CreateCategory(WarehouseEntity oParam)
+        public void UpdateWarehouse(WarehouseEntity oParam)
+        {
+            using (var db = new InventaryContext())
             {
-                using (var db = new InventaryContext())
-                {
-                    db.Warehouses.Add(oParam);
-                    db.SaveChanges();
-                }
-
+                db.Warehouses.Update(oParam);
+                db.SaveChanges();
             }
-            // Actualizar registro
+        }
 
-            public void UpdateCategory(WarehouseEntity oParam)
+        //Obtener registro por Id
+
+        public WarehouseEntity GetWarehouseForId(string oParamId)
+        {
+            using (var db = new InventaryContext())
             {
-                using (var db = new InventaryContext())
-                {
-                    db.Warehouses.Update(oParam);
-                    db.SaveChanges();
-                }
+                var registro = db.Warehouses.FirstOrDefault(p => p.WarehouseId == oParamId);
+
+                return registro;
             }
+        }
 
-            //Obtener registro por Id
-
-            public WarehouseEntity GetCategoryForId(string oParamId)
+        //Eliminar fisico
+        public void DeleteWarehouseForId(string oParamId)
+        {
+            using (var db = new InventaryContext())
             {
-                using (var db = new InventaryContext())
-                {
-                    var registro = db.Warehouses.Select(p => p.WarehouseId == oParamId);
+                // Find the entity to be deleted.
+                var registro = db.Warehouses.FirstOrDefault(e => e.WarehouseId == oParamId);
 
-                    return (WarehouseEntity)registro;
-                }
-            }
+                // Delete the entity.
+                db.Warehouses.Remove(registro);
 
-            //Eliminar fisico
-            public void DeleteCategoryForId(string oParamId)
-            {
-                using (var db = new InventaryContext())
-                {
-                    // Find the entity to be deleted.
-                    var registro = db.Warehouses.FirstOrDefault(e => e.WarehouseId == oParamId);
-
-                    // Delete the entity.
-                    db.Warehouses.Remove(registro);
-
-                    // Save the changes.
-                    db.SaveChanges();
-                }
+                // Save the changes.
+                db.SaveChanges();
             }
         }
     }
 }
+

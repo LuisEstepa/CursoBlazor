@@ -1,0 +1,47 @@
+﻿@using Entities
+@using Bussiness
+
+@if (categories == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <table id="categoriesTable" class="display table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>Categoria Id</th>
+                <th>Nombre Categoria</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in categories)
+            {
+                <tr>
+                    <td>@category.CategoryId</td>
+                    <td>@category.CategoryName</td>
+                    <td>
+                        <a href="categories/update/@category.CategoryId">Editar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@*<div>@message</div>*@
+
+@inject B_Category _Category
+
+@code {
+
+    List<CategoryEntity> categories = new List<CategoryEntity>();
+
+    //string message;
+
+    protected override async Task OnInitializedAsync()
+    {
+        categories = _Category.CategoryList();
+    }
+}
